@@ -90,6 +90,7 @@ class Console:
                  disable_audio=False,
                  overclock: Optional[float] = None,
                  save_replays=True,
+                 replay_directory="./"
                 ):
         """Create a Console object
 
@@ -121,6 +122,7 @@ class Console:
             disable_audio (bool): Turn off sound.
             overclock (bool): Overclock the dolphin CPU.
             save_replays (bool): Save slippi replays.
+            replay_directory (string): The location slippi replays will be stored
         """
         self.logger = logger
         self.system = system
@@ -169,6 +171,7 @@ class Console:
         self.disable_audio = disable_audio
         self.overclock = overclock
         self.save_replays = save_replays
+        self.replay_directory = replay_directory
 
         # Keep a running copy of the last gamestate produced
         self._prev_gamestate = GameState()
@@ -335,6 +338,7 @@ class Console:
             config.set("Core", "OverclockEnable", "True")
 
         config.set("Core", "SlippiSaveReplays", str(self.save_replays))
+        config.set("Core", "SlippiReplayDir", str(self.replay_directory))
 
         with open(dolphin_ini_path, 'w') as dolphinfile:
             config.write(dolphinfile)
