@@ -241,7 +241,7 @@ class Console:
             os.makedirs(pipes_path, exist_ok=True)
         return pipes_path + f"slippibot{port}"
 
-    def run(self, iso_path=None, dolphin_user_path=None, environment_vars=None, exe_name=None, command_prepend=""):
+    def run(self, iso_path=None, dolphin_user_path=None, environment_vars=None, exe_name=None, command=[]):
         """Run the Dolphin emulator.
 
         This starts the Dolphin process, so don't run this if you're connecting to an
@@ -269,12 +269,10 @@ class Console:
             exe_path = self.path
         if platform.system() == "Darwin":
             exe_path += "/Contents/MacOS"
-        command = [command_prepend]
         command.append(exe_path + "/" + exe_name)
 
         # AppImage
         if platform.system() == "Linux" and os.path.isfile(self.path):
-            command = [command_prepend]
             command.append(self.path)
 
         if iso_path is not None:
