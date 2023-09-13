@@ -241,7 +241,7 @@ class Console:
             os.makedirs(pipes_path, exist_ok=True)
         return pipes_path + f"slippibot{port}"
 
-    def run(self, iso_path=None, dolphin_user_path=None, environment_vars=None, exe_name=None):
+    def run(self, iso_path=None, dolphin_user_path=None, environment_vars=None, exe_name=None, command_prepend=""):
         """Run the Dolphin emulator.
 
         This starts the Dolphin process, so don't run this if you're connecting to an
@@ -283,7 +283,7 @@ class Console:
         env = os.environ.copy()
         if environment_vars is not None:
             env.update(environment_vars)
-        self._process = subprocess.Popen(command, env=env)
+        self._process = subprocess.Popen(command_prepend + command, env=env)
 
     def stop(self):
         """ Stop the console.
