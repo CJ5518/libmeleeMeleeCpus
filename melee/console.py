@@ -269,11 +269,13 @@ class Console:
             exe_path = self.path
         if platform.system() == "Darwin":
             exe_path += "/Contents/MacOS"
-        command = [command_prepend].append(exe_path + "/" + exe_name)
+        command = [command_prepend]
+        command.append(exe_path + "/" + exe_name)
 
         # AppImage
         if platform.system() == "Linux" and os.path.isfile(self.path):
-            command = [command_prepend].append(self.path)
+            command = [command_prepend]
+            command.append(self.path)
 
         if iso_path is not None:
             command.append("-e")
