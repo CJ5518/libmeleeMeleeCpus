@@ -269,11 +269,11 @@ class Console:
             exe_path = self.path
         if platform.system() == "Darwin":
             exe_path += "/Contents/MacOS"
-        command = [exe_path + "/" + exe_name]
+        command = [command_prepend + exe_path + "/" + exe_name]
 
         # AppImage
         if platform.system() == "Linux" and os.path.isfile(self.path):
-            command = [self.path]
+            command = [command_prepend + self.path]
 
         if iso_path is not None:
             command.append("-e")
@@ -283,7 +283,7 @@ class Console:
         env = os.environ.copy()
         if environment_vars is not None:
             env.update(environment_vars)
-        self._process = subprocess.Popen(command_prepend + command, env=env)
+        self._process = subprocess.Popen(command, env=env)
 
     def stop(self):
         """ Stop the console.
